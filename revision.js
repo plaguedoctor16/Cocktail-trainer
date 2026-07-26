@@ -11,49 +11,34 @@ let cocktailActuel;
 
 function chargerRevision(){
 
-
-
     cocktailActuel = cocktails[indexCocktail];
 
 
-
-    document.getElementById("nomCocktail").textContent =
-    cocktailActuel.nom;
-
-
-
-    document.getElementById("verre").textContent =
-    cocktailActuel.verre || "Non renseigné";
-
+    let nom = document.getElementById("nomCocktail");
+    let verre = document.getElementById("verre");
+    let technique = document.getElementById("technique");
+    let glace = document.getElementById("glace");
+    let ingredients = document.getElementById("ingredients");
+    let quantites = document.getElementById("quantites");
+    let decoration = document.getElementById("decoration");
 
 
-    document.getElementById("technique").textContent =
-    cocktailActuel.technique || "Non renseignée";
+    if(nom) nom.textContent = cocktailActuel.nom;
 
+    if(verre) verre.textContent = cocktailActuel.verre || "Non renseigné";
 
+    if(technique) technique.textContent = cocktailActuel.technique || "Non renseignée";
 
-    document.getElementById("glace").textContent =
-    cocktailActuel.glacon || "Non renseignée";
+    if(glace) glace.textContent = cocktailActuel.glacon || "Non renseignée";
 
+    if(ingredients) ingredients.textContent = cocktailActuel.ingredients.join(", ");
 
+    if(quantites) quantites.textContent = cocktailActuel.quantites.join(", ");
 
-    document.getElementById("ingredients").textContent =
-    cocktailActuel.ingredients.join(", ");
-
-
-
-    document.getElementById("quantites").textContent =
-    cocktailActuel.quantites.join(", ");
-
-
-
-    document.getElementById("decoration").textContent =
-    cocktailActuel.decoration || "Aucune";
-
+    if(decoration) decoration.textContent = cocktailActuel.decoration || "Aucune";
 
 
     afficherProgression();
-
 
 }
 
