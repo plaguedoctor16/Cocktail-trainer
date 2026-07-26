@@ -1,194 +1,124 @@
 console.log("Revision.js chargé !");
 
-
-
+let listeRevision = [];
 let indexCocktail = 0;
-
 let cocktailActuel;
 
+function initialiserRevision() {
 
+    let connus = JSON.parse(localStorage.getItem("connus")) || [];
 
+    listeRevision = cocktails.filter(cocktail => !connus.includes(cocktail.nom));
 
-function chargerRevision(){
+    if (listeRevision.length === 0) {
 
-    cocktailActuel = cocktails[indexCocktail];
+        document.getElementById("nomCocktail").textContent =
+            "🎉 Félicitations !";
 
+        document.getElementById("progressionTexte").textContent =
+            "Tous les cocktails sont maîtrisés.";
 
-    let nom = document.getElementById("nomCocktail");
-    let verre = document.getElementById("verre");
-    let technique = document.getElementById("technique");
-    let glace = document.getElementById("glace");
-    let ingredients = document.getElementById("ingredients");
-    let quantites = document.getElementById("quantites");
-    let decoration = document.getElementById("decoration");
+        document.getElementById("barreAvancement").style.width = "100%";
 
+        document.getElementById("reponse").style.display = "none";
 
-    if(nom) nom.textContent = cocktailActuel.nom;
+        return;
+    }
 
-    if(verre) verre.textContent = cocktailActuel.verre || "Non renseigné";
+    indexCocktail = 0;
 
-    if(technique) technique.textContent = cocktailActuel.technique || "Non renseignée";
-
-    if(glace) glace.textContent = cocktailActuel.glacon || "Non renseignée";
-
-    if(ingredients) ingredients.textContent = cocktailActuel.ingredients.join(", ");
-
-    if(quantites) quantites.textContent = cocktailActuel.quantites.join(", ");
-
-    if(decoration) decoration.textContent = cocktailActuel.decoration || "Aucune";
-
-
-    afficherProgression();
-
+    chargerRevision();
 }
 
+function chargerRevision() {
 
+    cocktailActuel = listeRevision[indexCocktail];
 
+    document.getElementById("nomCocktail").textContent =
+        cocktailActuel.nom;
 
+    document.getElementById("verre").textContent =
+        cocktailActuel.verre || "Non renseigné";
 
+    document.getElementById("technique").textContent =
+        cocktailActuel.technique || "Non renseignée";
 
+    document.getElementById("glace").textContent =
+        cocktailActuel.glacon || "Non renseignée";
 
-function afficherProgression(){
+    document.getElementById("ingredients").textContent =
+        cocktailActuel.ingredients.join(", ");
 
+    document.getElementById("quantites").textContent =
+        cocktailActuel.quantites.join(", ");
 
+    document.getElementById("decoration").textContent =
+        cocktailActuel.decoration || "Aucune";
 
-    let total = cocktails.length;
+    afficherProgression();
+}
 
+function afficherProgression() {
 
+    let total = listeRevision.length;
 
     let actuel = indexCocktail + 1;
 
-
-
-    let pourcentage =
-
-    Math.round((actuel / total) * 100);
-
-
-
+    let pourcentage = Math.round((actuel / total) * 100);
 
     document.getElementById("progressionTexte").textContent =
-
-
-    "🍸 Cocktail "
-    + actuel
-    + " / "
-    + total;
-
-
-
-
+        "🍸 Cocktail " + actuel + " / " + total;
 
     document.getElementById("barreAvancement").style.width =
-
-    pourcentage + "%";
-
-
-
+        pourcentage + "%";
 }
 
+function voirReponse() {
 
-
-
-
-
-
-function voirReponse(){
-
-
-
-    document.getElementById("reponse").style.display =
-
-    "block";
-
-
+    document.getElementById("reponse").style.display = "block";
 }
 
+function reussi() {
 
+    connaitreCocktail(cocktailActuel.nom);
 
+    listeRevision.splice(indexCocktail, 1);
 
+    if (listeRevision.length === 0) {
 
+        initialiserRevision();
+        return;
+    }
 
+    if (indexCocktail >= listeRevision.length) {
 
+        indexCocktail = 0;
+    }
 
-function reussi(){
+    document.getElementById("reponse").style.display = "none";
 
+    chargerRevision();
+}
 
+function echec() {
 
-    connaitreCocktail(
-        cocktailActuel.nom
-    );
-
-
+    revoirCocktail(cocktailActuel.nom);
 
     suivant();
-
-
 }
 
-
-
-
-
-
-
-function echec(){
-
-
-
-    revoirCocktail(
-        cocktailActuel.nom
-    );
-
-
-
-    suivant();
-
-
-}
-
-
-
-
-
-
-
-function suivant(){
-
-
+function suivant() {
 
     indexCocktail++;
 
-
-
-
-    if(indexCocktail >= cocktails.length){
-
+    if (indexCocktail >= listeRevision.length) {
 
         indexCocktail = 0;
-
-
     }
 
-
-
-
-    document.getElementById("reponse").style.display =
-
-    "none";
-
-
+    document.getElementById("reponse").style.display = "none";
 
     chargerRevision();
-
-
-
 }
 
-
-
-
-
-
-
-chargerRevision();
+initialiserRevision();
