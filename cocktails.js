@@ -115,7 +115,7 @@ verre:"Rocks",
 technique:"Shake and strain",
 glacon:"Cubed",
 ingredients:["Vodka","Coffee liqueur","Amaretto","Baileys","Milk"],
-quantites:["1 cl","1 cl","1 cl","1 cl","fill"],
+quantites:["1 cl","1 cl","1 cl","1 cl","4 cl"],
 decoration:"None"
 },
 
