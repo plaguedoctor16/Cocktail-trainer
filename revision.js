@@ -77,45 +77,6 @@ cocktailActuel.decoration || "Aucune";
 
 
 
-// Nouvelles informations professionnelles
-
-
-
-document.getElementById("difficulte").textContent =
-
-cocktailActuel.difficulte || "Non renseignée";
-
-
-
-
-
-document.getElementById("famille").textContent =
-
-cocktailActuel.famille || "Non renseignée";
-
-
-
-
-
-document.getElementById("origine").textContent =
-
-cocktailActuel.origine || "Non renseignée";
-
-
-
-
-
-document.getElementById("histoire").textContent =
-
-cocktailActuel.histoire || "Non renseignée";
-
-
-
-
-
-document.getElementById("conseil").textContent =
-
-cocktailActuel.conseil || "Non renseigné";
 
 
 
