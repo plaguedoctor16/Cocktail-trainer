@@ -1,45 +1,23 @@
 console.log("Revision.js chargé !");
 
-
 let indexCocktail = 0;
-
-let cocktailActuel;
-
+let cocktailActuel = null;
 let listeRevision = [];
-
-
 
 
 
 function chargerListeRevision(){
 
-
-    let connus = getConnus();
+    let connus = JSON.parse(
+        localStorage.getItem("connus")
+    ) || [];
 
 
     listeRevision = cocktails.filter(
-
         cocktail => !connus.includes(cocktail.nom)
-
     );
 
-
-    if(listeRevision.length === 0){
-
-        document.getElementById("nomCocktail").textContent =
-        "🎉 Tous les cocktails sont maîtrisés !";
-
-        return;
-
-    }
-
-
-
 }
-
-
-
-
 
 
 
@@ -50,6 +28,12 @@ function chargerRevision(){
 
 
     if(listeRevision.length === 0){
+
+        document.getElementById("nomCocktail").textContent =
+        "🎉 Tous les cocktails sont maîtrisés !";
+
+        document.getElementById("progressionTexte").textContent =
+        "66 / 66";
 
         return;
 
@@ -78,25 +62,20 @@ function chargerRevision(){
     cocktailActuel.verre || "Non renseigné";
 
 
-
     document.getElementById("technique").textContent =
     cocktailActuel.technique || "Non renseignée";
-
 
 
     document.getElementById("glace").textContent =
     cocktailActuel.glacon || "Non renseignée";
 
 
-
     document.getElementById("ingredients").textContent =
     cocktailActuel.ingredients.join(", ");
 
 
-
     document.getElementById("quantites").textContent =
     cocktailActuel.quantites.join(", ");
-
 
 
     document.getElementById("decoration").textContent =
@@ -104,7 +83,8 @@ function chargerRevision(){
 
 
 
-    document.getElementById("reponse").style.display="none";
+    document.getElementById("reponse").style.display =
+    "none";
 
 
     afficherProgression();
@@ -117,32 +97,26 @@ function chargerRevision(){
 
 function afficherProgression(){
 
-
-    let total = listeRevision.length;
-
-
-    let actuel = indexCocktail + 1;
-
+    let connus = JSON.parse(
+        localStorage.getItem("connus")
+    ) || [];
 
 
     document.getElementById("progressionTexte").textContent =
 
-    "🍸 Cocktail "
-    + actuel
+    "🍸 Maîtrisés : "
+    + connus.length
     + " / "
-    + total;
-
-
-
-    let pourcentage =
-
-    Math.round((actuel / total) * 100);
+    + cocktails.length;
 
 
 
     document.getElementById("barreAvancement").style.width =
 
-    pourcentage + "%";
+    Math.round(
+        (connus.length / cocktails.length) * 100
+    )
+    + "%";
 
 }
 
@@ -152,9 +126,8 @@ function afficherProgression(){
 
 function voirReponse(){
 
-
-    document.getElementById("reponse").style.display="block";
-
+    document.getElementById("reponse").style.display =
+    "block";
 
 }
 
@@ -164,28 +137,14 @@ function voirReponse(){
 
 function reussi(){
 
-
     connaitreCocktail(
         cocktailActuel.nom
     );
 
 
-    chargerListeRevision();
-
-
-    if(indexCocktail >= listeRevision.length){
-
-        indexCocktail = 0;
-
-    }
-
-
     chargerRevision();
 
-
 }
-
-
 
 
 
@@ -193,14 +152,12 @@ function reussi(){
 
 function echec(){
 
-
     revoirCocktail(
         cocktailActuel.nom
     );
 
 
-    suivant();
-
+    passerSuivant();
 
 }
 
@@ -208,9 +165,16 @@ function echec(){
 
 
 
-
-
 function suivant(){
+
+    passerSuivant();
+
+}
+
+
+
+
+function passerSuivant(){
 
 
     indexCocktail++;
@@ -223,12 +187,9 @@ function suivant(){
     }
 
 
-
     chargerRevision();
 
-
 }
-
 
 
 
