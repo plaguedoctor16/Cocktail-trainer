@@ -9,88 +9,53 @@ let cocktailActuel;
 
 
 
-
 function chargerRevision(){
 
 
 
-cocktailActuel = cocktails[indexCocktail];
+    cocktailActuel = cocktails[indexCocktail];
 
 
 
-
-document.getElementById("nomCocktail").textContent =
-
-cocktailActuel.nom;
+    document.getElementById("nomCocktail").textContent =
+    cocktailActuel.nom;
 
 
 
-
-
-document.getElementById("verre").textContent =
-
-cocktailActuel.verre || "Non renseigné";
+    document.getElementById("verre").textContent =
+    cocktailActuel.verre || "Non renseigné";
 
 
 
-
-
-document.getElementById("technique").textContent =
-
-cocktailActuel.technique || "Non renseignée";
+    document.getElementById("technique").textContent =
+    cocktailActuel.technique || "Non renseignée";
 
 
 
-
-
-document.getElementById("glace").textContent =
-
-cocktailActuel.glace || cocktailActuel.glacon || "Non renseignée";
+    document.getElementById("glace").textContent =
+    cocktailActuel.glacon || "Non renseignée";
 
 
 
-
-
-document.getElementById("ingredients").textContent =
-
-cocktailActuel.ingredients.join(", ");
+    document.getElementById("ingredients").textContent =
+    cocktailActuel.ingredients.join(", ");
 
 
 
-
-
-document.getElementById("quantites").textContent =
-
-cocktailActuel.quantites.join(", ");
+    document.getElementById("quantites").textContent =
+    cocktailActuel.quantites.join(", ");
 
 
 
-
-
-document.getElementById("decoration").textContent =
-
-cocktailActuel.decoration || "Aucune";
+    document.getElementById("decoration").textContent =
+    cocktailActuel.decoration || "Aucune";
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-afficherProgression();
-
+    afficherProgression();
 
 
 }
-
-
 
 
 
@@ -102,68 +67,40 @@ function afficherProgression(){
 
 
 
-let total = cocktails.length;
+    let total = cocktails.length;
 
 
 
-let actuel = indexCocktail + 1;
+    let actuel = indexCocktail + 1;
 
 
 
-let pourcentage =
+    let pourcentage =
 
-(actuel / total) * 100;
-
-
+    Math.round((actuel / total) * 100);
 
 
 
 
+    document.getElementById("progressionTexte").textContent =
 
-document.getElementById("progressionTexte").textContent =
 
-
-"🍸 Cocktail "
-+
-actuel
-+
-" / "
-+
-total;
+    "🍸 Cocktail "
+    + actuel
+    + " / "
+    + total;
 
 
 
 
 
+    document.getElementById("barreAvancement").style.width =
 
-
-document.getElementById("barreAvancement").style.width =
-
-pourcentage + "%";
-
-
-
-
-
-console.log(
-
-"Progression : "
-
-+
-
-pourcentage
-
-+
-
-"%"
-
-);
+    pourcentage + "%";
 
 
 
 }
-
-
 
 
 
@@ -175,14 +112,12 @@ function voirReponse(){
 
 
 
-document.getElementById("reponse").style.display =
+    document.getElementById("reponse").style.display =
 
-"block";
-
+    "block";
 
 
 }
-
 
 
 
@@ -195,17 +130,16 @@ function reussi(){
 
 
 
-connaitreCocktail(cocktailActuel.nom);
+    connaitreCocktail(
+        cocktailActuel.nom
+    );
 
 
 
-suivant();
-
+    suivant();
 
 
 }
-
-
 
 
 
@@ -217,17 +151,16 @@ function echec(){
 
 
 
-revoirCocktail(cocktailActuel.nom);
+    revoirCocktail(
+        cocktailActuel.nom
+    );
 
 
 
-suivant();
-
+    suivant();
 
 
 }
-
-
 
 
 
@@ -239,43 +172,33 @@ function suivant(){
 
 
 
-indexCocktail++;
+    indexCocktail++;
 
 
 
 
-
-if(indexCocktail >= cocktails.length){
-
-
-indexCocktail = 0;
+    if(indexCocktail >= cocktails.length){
 
 
-}
+        indexCocktail = 0;
 
+
+    }
 
 
 
 
+    document.getElementById("reponse").style.display =
 
-
-document.getElementById("reponse").style.display =
-
-"none";
-
+    "none";
 
 
 
-
-
-
-chargerRevision();
+    chargerRevision();
 
 
 
 }
-
-
 
 
 
