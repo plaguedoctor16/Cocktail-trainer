@@ -1,8 +1,9 @@
 console.log("Revision.js chargé !");
 
+
+let listeRevision = [];
 let indexCocktail = 0;
 let cocktailActuel = null;
-let listeRevision = [];
 
 
 
@@ -14,7 +15,7 @@ function chargerListeRevision(){
 
 
     listeRevision = cocktails.filter(
-        cocktail => !connus.includes(cocktail.nom)
+        c => !connus.includes(c.nom)
     );
 
 }
@@ -32,13 +33,9 @@ function chargerRevision(){
         document.getElementById("nomCocktail").textContent =
         "🎉 Tous les cocktails sont maîtrisés !";
 
-        document.getElementById("progressionTexte").textContent =
-        "66 / 66";
-
         return;
 
     }
-
 
 
     if(indexCocktail >= listeRevision.length){
@@ -48,26 +45,23 @@ function chargerRevision(){
     }
 
 
-
     cocktailActuel = listeRevision[indexCocktail];
-
 
 
     document.getElementById("nomCocktail").textContent =
     cocktailActuel.nom;
 
 
-
     document.getElementById("verre").textContent =
-    cocktailActuel.verre || "Non renseigné";
+    cocktailActuel.verre || "";
 
 
     document.getElementById("technique").textContent =
-    cocktailActuel.technique || "Non renseignée";
+    cocktailActuel.technique || "";
 
 
     document.getElementById("glace").textContent =
-    cocktailActuel.glacon || "Non renseignée";
+    cocktailActuel.glacon || "";
 
 
     document.getElementById("ingredients").textContent =
@@ -79,8 +73,7 @@ function chargerRevision(){
 
 
     document.getElementById("decoration").textContent =
-    cocktailActuel.decoration || "Aucune";
-
+    cocktailActuel.decoration || "";
 
 
     document.getElementById("reponse").style.display =
@@ -94,8 +87,8 @@ function chargerRevision(){
 
 
 
-
 function afficherProgression(){
+
 
     let connus = JSON.parse(
         localStorage.getItem("connus")
@@ -110,11 +103,10 @@ function afficherProgression(){
     + cocktails.length;
 
 
-
     document.getElementById("barreAvancement").style.width =
 
     Math.round(
-        (connus.length / cocktails.length) * 100
+        connus.length / cocktails.length * 100
     )
     + "%";
 
@@ -137,9 +129,13 @@ function voirReponse(){
 
 function reussi(){
 
+
     connaitreCocktail(
         cocktailActuel.nom
     );
+
+
+    indexCocktail = 0;
 
 
     chargerRevision();
@@ -152,12 +148,16 @@ function reussi(){
 
 function echec(){
 
+
     revoirCocktail(
         cocktailActuel.nom
     );
 
 
-    passerSuivant();
+    indexCocktail++;
+
+
+    chargerRevision();
 
 }
 
@@ -167,24 +167,8 @@ function echec(){
 
 function suivant(){
 
-    passerSuivant();
-
-}
-
-
-
-
-function passerSuivant(){
-
 
     indexCocktail++;
-
-
-    if(indexCocktail >= listeRevision.length){
-
-        indexCocktail = 0;
-
-    }
 
 
     chargerRevision();
