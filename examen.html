@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Examen - Cocktail Trainer</title>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../css/style.css">
+
+
+</head>
+
+
+
+<body>
+
+
+
+<nav class="navbar">
+
+
+<a href="../index.html">
+🏠 Accueil
+</a>
+
+
+<a href="revision.html">
+📖 Révision
+</a>
+
+
+<a href="quiz.html">
+❓ Quiz
+</a>
+
+
+<a href="examen.html">
+🎓 Examen
+</a>
+
+
+<a href="statistiques.html">
+📊 Stats
+</a>
+
+
+<a href="parametres.html">
+⚙️ Paramètres
+</a>
+
+
+</nav>
+
+
+
+
+
+<div class="container">
+
+
+<div class="card">
+
+
+
+<h1>
+🎓 Examen Cocktail
+</h1>
+
+
+
+
+<p id="progressionExamen">
+
+Question 1 / 30
+
+</p>
+
+
+
+
+
+<h2 id="question">
+
+Chargement...
+
+</h2>
+
+
+
+
+
+<div id="reponses">
+
+
+<button id="choix0" class="btn" onclick="repondre(0)">
+</button>
+
+
+<button id="choix1" class="btn" onclick="repondre(1)">
+</button>
+
+
+<button id="choix2" class="btn" onclick="repondre(2)">
+</button>
+
+
+<button id="choix3" class="btn" onclick="repondre(3)">
+</button>
+
+
+</div>
+
+
+
+
+<p id="resultat"></p>
+
+
+
+
+
+<br>
+
+
+
+<button class="btn" onclick="questionSuivante()">
+
+➡️ Question suivante
+
+</button>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<script src="../data/cocktails.js"></script>
+
+<script src="../js/examen.js"></script>
+
+
+
+</body>
+
+</html>

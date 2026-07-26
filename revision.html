@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+
+<head>
+
+
+<meta charset="UTF-8">
+
+
+<title>Révision - Cocktail Trainer</title>
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="../css/style.css">
+
+
+
+</head>
+
+
+
+
+<body>
+
+
+
+
+<nav class="navbar">
+
+
+
+<a href="../index.html">
+🏠 Accueil
+</a>
+
+
+
+<a href="revision.html">
+📖 Révision
+</a>
+
+
+
+<a href="quiz.html">
+❓ Quiz
+</a>
+
+
+
+<a href="examen.html">
+🎓 Examen
+</a>
+
+
+
+<a href="statistiques.html">
+📊 Stats
+</a>
+
+
+
+<a href="parametres.html">
+⚙️ Paramètres
+</a>
+
+
+
+</nav>
+
+
+
+
+
+
+
+<div class="container">
+
+
+
+
+
+<div class="card">
+
+
+
+
+
+
+<h1>
+📖 Révision Cocktail
+</h1>
+
+
+
+
+
+<p id="progressionTexte">
+
+🍸 Cocktail 1 / 66
+
+</p>
+
+
+
+
+
+
+<div id="barreFond">
+
+
+<div id="barreAvancement"></div>
+
+
+</div>
+
+
+
+
+
+
+
+<br>
+
+
+
+
+
+
+<h2 id="nomCocktail">
+
+Chargement...
+
+</h2>
+
+
+
+
+
+
+
+<button class="btn" onclick="voirReponse()">
+
+Voir la fiche
+
+</button>
+
+
+
+
+
+
+
+<div id="reponse" style="display:none">
+
+
+
+
+
+
+
+
+<p>
+
+<strong>🥃 Verre :</strong>
+
+<span id="verre"></span>
+
+</p>
+
+
+
+
+
+
+
+<p>
+
+<strong>🛠 Technique :</strong>
+
+<span id="technique"></span>
+
+</p>
+
+
+
+
+
+
+
+<p>
+
+<strong>🧊 Glace :</strong>
+
+<span id="glace"></span>
+
+</p>
+
+
+
+
+
+
+
+<p>
+
+<strong>🍹 Ingrédients :</strong>
+
+<span id="ingredients"></span>
+
+</p>
+
+
+
+
+
+
+
+<p>
+
+<strong>📏 Quantités :</strong>
+
+<span id="quantites"></span>
+
+</p>
+
+
+
+
+
+
+
+<p>
+
+<strong>🍋 Décoration :</strong>
+
+<span id="decoration"></span>
+
+</p>
+
+
+
+
+
+
+
+
+<hr>
+
+
+
+
+
+
+
+<h2>
+📚 Informations professionnelles
+</h2>
+
+
+
+
+
+
+
+<p>
+
+<strong>⭐ Difficulté :</strong>
+
+<span id="difficulte"></span>
+
+</p>
+
+
+
+
+
+
+
+<p>
+
+<strong>🍸 Famille :</strong>
+
+<span id="famille"></span>
+
+</p>
+
+
+
+
+
+
+
+<p>
+
+<strong>🌍 Origine :</strong>
+
+<span id="origine"></span>
+
+</p>
+
+
+
+
+
+
+
+<p>
+
+<strong>📖 Histoire :</strong>
+
+<span id="histoire"></span>
+
+</p>
+
+
+
+
+
+
+
+<p>
+
+<strong>👨‍🍳 Conseil barman :</strong>
+
+<span id="conseil"></span>
+
+</p>
+
+
+
+
+
+
+
+<br>
+
+
+
+
+
+
+
+<button class="btn" onclick="reussi()">
+
+✅ Je connais
+
+</button>
+
+
+
+
+
+
+
+<button class="btn" onclick="echec()">
+
+❌ À revoir
+
+</button>
+
+
+
+
+
+
+
+<button class="btn" onclick="suivant()">
+
+➡️ Cocktail suivant
+
+</button>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<script src="../data/cocktails.js"></script>
+
+
+<script src="../js/progression.js"></script>
+
+
+<script src="../js/revision.js"></script>
+
+
+
+
+
+</body>
+
+
+</html>
