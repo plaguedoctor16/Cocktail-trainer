@@ -1,52 +1,14 @@
 console.log("Progression.js chargé !");
 
 
-// Récupérer les cocktails connus
-
-function recupererConnus(){
-
-    let donnees = localStorage.getItem("cocktailsConnus");
-
-
-    if(donnees){
-
-        return JSON.parse(donnees);
-
-    }
-
-
-    return [];
-
-}
-
-
-
-// Récupérer les cocktails à revoir
-
-function recupererARevoir(){
-
-    let donnees = localStorage.getItem("cocktailsARevoir");
-
-
-    if(donnees){
-
-        return JSON.parse(donnees);
-
-    }
-
-
-    return [];
-
-}
-
-
-
-// Ajouter un cocktail connu
+// Ajouter un cocktail aux cocktails connus
 
 function connaitreCocktail(nom){
 
 
-    let connus = recupererConnus();
+    let connus = JSON.parse(
+        localStorage.getItem("connus")
+    ) || [];
 
 
 
@@ -61,23 +23,14 @@ function connaitreCocktail(nom){
 
 
     localStorage.setItem(
-
-        "cocktailsConnus",
-
+        "connus",
         JSON.stringify(connus)
-
     );
 
 
-
-    console.log(
-        "Sauvegarde connue :",
-        connus
-    );
-
+    console.log("Cocktail maîtrisé :", nom);
 
 }
-
 
 
 
@@ -87,7 +40,9 @@ function connaitreCocktail(nom){
 function revoirCocktail(nom){
 
 
-    let revoir = recupererARevoir();
+    let revoir = JSON.parse(
+        localStorage.getItem("revoir")
+    ) || [];
 
 
 
@@ -102,56 +57,11 @@ function revoirCocktail(nom){
 
 
     localStorage.setItem(
-
-        "cocktailsARevoir",
-
+        "revoir",
         JSON.stringify(revoir)
-
     );
 
 
-
-    console.log(
-        "Sauvegarde à revoir :",
-        revoir
-    );
-
-
-}
-
-
-
-
-// Afficher les statistiques dans la console
-
-function afficherStats(){
-
-
-    let connus = recupererConnus();
-
-
-    let revoir = recupererARevoir();
-
-
-
-    console.log("===== STATISTIQUES =====");
-
-    console.log(
-        "Connus :",
-        connus.length
-    );
-
-
-    console.log(
-        "À revoir :",
-        revoir.length
-    );
-
-
-    console.log(
-        "Total cocktails :",
-        cocktails.length
-    );
-
+    console.log("Cocktail à revoir :", nom);
 
 }
