@@ -1,58 +1,50 @@
 console.log("Revision.js chargé !");
 
-let cocktailActuel = null;
+let cocktailsRevision = [];
 let indexCocktail = 0;
+let cocktailActuel = null;
 
-function obtenirCocktailsConnus() {
-    return JSON.parse(localStorage.getItem("connus")) || [];
-}
+function initialiserRevision() {
 
-function trouverProchainCocktail() {
+    const connus = JSON.parse(localStorage.getItem("connus")) || [];
 
-    let connus = obtenirCocktailsConnus();
+    cocktailsRevision = cocktails.filter(c =>
+        !connus.includes(c.nom)
+    );
 
-    for (let i = 0; i < cocktails.length; i++) {
-
-        if (!connus.includes(cocktails[i].nom)) {
-            indexCocktail = i;
-            return true;
-        }
-
-    }
-
-    return false;
-}
-
-function chargerRevision() {
-
-    if (!trouverProchainCocktail()) {
+    if (cocktailsRevision.length === 0) {
 
         document.getElementById("nomCocktail").textContent =
-            "🎉 Félicitations !";
+            "🎉 Tous les cocktails sont maîtrisés !";
 
         document.getElementById("progressionTexte").textContent =
-            "🍸 66 / 66 cocktails maîtrisés";
-
-        document.getElementById("barreAvancement").style.width = "100%";
+            "66 / 66";
 
         document.getElementById("reponse").style.display = "none";
 
         return;
     }
 
-    cocktailActuel = cocktails[indexCocktail];
+    indexCocktail = 0;
+
+    chargerRevision();
+}
+
+function chargerRevision() {
+
+    cocktailActuel = cocktailsRevision[indexCocktail];
 
     document.getElementById("nomCocktail").textContent =
         cocktailActuel.nom;
 
     document.getElementById("verre").textContent =
-        cocktailActuel.verre || "Non renseigné";
+        cocktailActuel.verre || "";
 
     document.getElementById("technique").textContent =
-        cocktailActuel.technique || "Non renseignée";
+        cocktailActuel.technique || "";
 
     document.getElementById("glace").textContent =
-        cocktailActuel.glacon || "Non renseignée";
+        cocktailActuel.glacon || "";
 
     document.getElementById("ingredients").textContent =
         cocktailActuel.ingredients.join(", ");
@@ -63,69 +55,69 @@ function chargerRevision() {
     document.getElementById("decoration").textContent =
         cocktailActuel.decoration || "Aucune";
 
-    afficherProgression();
-
     document.getElementById("reponse").style.display = "none";
+
+    afficherProgression();
 }
 
 function afficherProgression() {
 
-    let connus = obtenirCocktailsConnus().length;
-    let total = cocktails.length;
+    const total = cocktailsRevision.length;
+    const actuel = indexCocktail + 1;
 
     document.getElementById("progressionTexte").textContent =
-        "🍸 Progression : " + connus + " / " + total;
-
-    let pourcentage = Math.round((connus / total) * 100);
+        "🍸 Cocktail " + actuel + " / " + total;
 
     document.getElementById("barreAvancement").style.width =
-        pourcentage + "%";
+        ((actuel / total) * 100) + "%";
 }
 
 function voirReponse() {
 
     document.getElementById("reponse").style.display = "block";
-
 }
 
 function reussi() {
 
     connaitreCocktail(cocktailActuel.nom);
 
-    chargerRevision();
+    cocktailsRevision.splice(indexCocktail, 1);
 
+    if (cocktailsRevision.length === 0) {
+
+        initialiserRevision();
+        return;
+    }
+
+    if (indexCocktail >= cocktailsRevision.length) {
+        indexCocktail = 0;
+    }
+
+    chargerRevision();
 }
 
 function echec() {
 
     revoirCocktail(cocktailActuel.nom);
 
-    suivant();
+    indexCocktail++;
 
-}
-
-function suivant() {
-
-    let depart = indexCocktail;
-
-    do {
-
-        indexCocktail++;
-
-        if (indexCocktail >= cocktails.length) {
-            indexCocktail = 0;
-        }
-
-        let connus = obtenirCocktailsConnus();
-
-        if (!connus.includes(cocktails[indexCocktail].nom)) {
-            chargerRevision();
-            return;
-        }
-
-    } while (indexCocktail !== depart);
+    if (indexCocktail >= cocktailsRevision.length) {
+        indexCocktail = 0;
+    }
 
     chargerRevision();
 }
 
-chargerRevision();
+function suivant() {
+
+    indexCocktail++;
+
+    if (indexCocktail >= cocktailsRevision.length) {
+        indexCocktail = 0;
+    }
+
+    chargerRevision();
+}
+
+initialiserRevision();
