@@ -1,22 +1,37 @@
 console.log("Revision.js chargé !");
 
-let listeRevision = [];
+let cocktailActuel = null;
 let indexCocktail = 0;
-let cocktailActuel;
 
-function initialiserRevision() {
+function obtenirCocktailsConnus() {
+    return JSON.parse(localStorage.getItem("connus")) || [];
+}
 
-    let connus = JSON.parse(localStorage.getItem("connus")) || [];
+function trouverProchainCocktail() {
 
-    listeRevision = cocktails.filter(cocktail => !connus.includes(cocktail.nom));
+    let connus = obtenirCocktailsConnus();
 
-    if (listeRevision.length === 0) {
+    for (let i = 0; i < cocktails.length; i++) {
+
+        if (!connus.includes(cocktails[i].nom)) {
+            indexCocktail = i;
+            return true;
+        }
+
+    }
+
+    return false;
+}
+
+function chargerRevision() {
+
+    if (!trouverProchainCocktail()) {
 
         document.getElementById("nomCocktail").textContent =
             "🎉 Félicitations !";
 
         document.getElementById("progressionTexte").textContent =
-            "Tous les cocktails sont maîtrisés.";
+            "🍸 66 / 66 cocktails maîtrisés";
 
         document.getElementById("barreAvancement").style.width = "100%";
 
@@ -25,14 +40,7 @@ function initialiserRevision() {
         return;
     }
 
-    indexCocktail = 0;
-
-    chargerRevision();
-}
-
-function chargerRevision() {
-
-    cocktailActuel = listeRevision[indexCocktail];
+    cocktailActuel = cocktails[indexCocktail];
 
     document.getElementById("nomCocktail").textContent =
         cocktailActuel.nom;
@@ -56,18 +64,19 @@ function chargerRevision() {
         cocktailActuel.decoration || "Aucune";
 
     afficherProgression();
+
+    document.getElementById("reponse").style.display = "none";
 }
 
 function afficherProgression() {
 
-    let total = listeRevision.length;
-
-    let actuel = indexCocktail + 1;
-
-    let pourcentage = Math.round((actuel / total) * 100);
+    let connus = obtenirCocktailsConnus().length;
+    let total = cocktails.length;
 
     document.getElementById("progressionTexte").textContent =
-        "🍸 Cocktail " + actuel + " / " + total;
+        "🍸 Progression : " + connus + " / " + total;
+
+    let pourcentage = Math.round((connus / total) * 100);
 
     document.getElementById("barreAvancement").style.width =
         pourcentage + "%";
@@ -76,28 +85,15 @@ function afficherProgression() {
 function voirReponse() {
 
     document.getElementById("reponse").style.display = "block";
+
 }
 
 function reussi() {
 
     connaitreCocktail(cocktailActuel.nom);
 
-    listeRevision.splice(indexCocktail, 1);
-
-    if (listeRevision.length === 0) {
-
-        initialiserRevision();
-        return;
-    }
-
-    if (indexCocktail >= listeRevision.length) {
-
-        indexCocktail = 0;
-    }
-
-    document.getElementById("reponse").style.display = "none";
-
     chargerRevision();
+
 }
 
 function echec() {
@@ -105,20 +101,31 @@ function echec() {
     revoirCocktail(cocktailActuel.nom);
 
     suivant();
+
 }
 
 function suivant() {
 
-    indexCocktail++;
+    let depart = indexCocktail;
 
-    if (indexCocktail >= listeRevision.length) {
+    do {
 
-        indexCocktail = 0;
-    }
+        indexCocktail++;
 
-    document.getElementById("reponse").style.display = "none";
+        if (indexCocktail >= cocktails.length) {
+            indexCocktail = 0;
+        }
+
+        let connus = obtenirCocktailsConnus();
+
+        if (!connus.includes(cocktails[indexCocktail].nom)) {
+            chargerRevision();
+            return;
+        }
+
+    } while (indexCocktail !== depart);
 
     chargerRevision();
 }
 
-initialiserRevision();
+chargerRevision();
